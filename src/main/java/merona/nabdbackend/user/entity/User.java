@@ -32,4 +32,11 @@ public class User extends BaseEntity {
 
     //Address 추가 예정. 객체로 분리할지에 대한 추가 논의
 
+    public User(String email, String name, String password, String phoneNumber) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.role = Role.ROLE_USER;
+    }
 }
