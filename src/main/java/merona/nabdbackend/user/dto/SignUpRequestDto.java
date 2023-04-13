@@ -11,6 +11,6 @@ public class SignUpRequestDto {
     private String phoneNumber;
 
     public User userFromDto() {
-        return new User(email, password, name, phoneNumber);
+        return new User(email, name, password, phoneNumber);
     }
 }
