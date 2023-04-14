@@ -92,4 +92,10 @@ public class UserService {
         return tokenDto;
     }
 
+    public User findUserByEmail(String userEmail) {
+        Optional<User> userByEmail = userRepository.findUserByEmail(userEmail);
+        User user = userByEmail.get();
+        return user;
+    }
+
 }

@@ -29,4 +29,11 @@ public class Board extends BaseEntity {
     private State state;
 
     //Address 추가 예정. 객체로 분리할지에 대한 추가 논의
+
+    public Board(User user, String title, String contents){
+        this.user = user;
+        this.title = title;
+        this.contents = contents;
+        this.state = State.REQUEST_WAITING;
+    }
 }
