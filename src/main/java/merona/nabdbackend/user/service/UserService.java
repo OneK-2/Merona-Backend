@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import merona.nabdbackend.auth.*;
 import merona.nabdbackend.auth.token.RefreshToken;
 import merona.nabdbackend.auth.token.RefreshTokenRepository;
+import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.user.dto.LoginRequestDto;
 import merona.nabdbackend.user.dto.SignUpRequestDto;
 import merona.nabdbackend.user.entity.User;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -96,6 +98,10 @@ public class UserService {
         Optional<User> userByEmail = userRepository.findUserByEmail(userEmail);
         User user = userByEmail.get();
         return user;
+    }
+
+    public List<Board> findBoardsByEmail(User user) {
+        return userRepository.findById(user.getId()).get().getBoards();
     }
 
 }
