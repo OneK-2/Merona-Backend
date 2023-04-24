@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,6 +30,12 @@ public class BoardService {
     // 게시물 전체 조회
     public List<Board> findAll(){
         return boardRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    // 게시물 id로 조회
+    public Optional<Board> findById(Long id){
+        return boardRepository.findById(id);
     }
 
 }

@@ -47,4 +47,12 @@ public class BoardController {
         return new ResponseEntity<>(boards, HttpStatus.OK);
     }
 
+    // 게시글 세부 내용 조회
+    @GetMapping("/list/{id}")
+    public ResponseEntity<Board> viewDetailPost(@PathVariable Long id){
+        Board board = boardService.findById(id).get();
+        return ResponseEntity.ok().body(board);
+    }
+
+
 }
