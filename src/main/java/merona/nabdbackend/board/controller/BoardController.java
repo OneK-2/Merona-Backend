@@ -3,6 +3,7 @@ package merona.nabdbackend.board.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import merona.nabdbackend.board.dto.BoardSaveRequestDto;
+import merona.nabdbackend.board.dto.BoardUpdateRequestDto;
 import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.board.service.BoardService;
 import merona.nabdbackend.user.entity.User;
@@ -66,6 +67,25 @@ public class BoardController {
         // 작성한 사용자만 지울 수 있음
         if (user.getId().equals(board.getUser().getId())){
             boardService.deleteById(id);
+        }
+        return ResponseEntity.ok().body(id);
+    }
+
+    // 게시글 수정
+    @PatchMapping("/list/{id}/update")
+    public ResponseEntity<Long> updatePost(@PathVariable Long id, @RequestBody BoardUpdateRequestDto updateDto){
+        // 현재 세션 사용자의 객체를 가져옴
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // 사용자 아이디로 User 조회
+        User user = userService.findUserByEmail(authentication.getName());
+        Board board = boardService.findById(id).get();
+
+        // 작성한 사용자만 수정할 수 있음
+        if (user.getId().equals(board.getUser().getId())){
+            Long savedBoardId = boardService.updateBoard(id, updateDto);
+        }
+        else{
+            throw new RuntimeException("수정할 수 없습니다.");
         }
         return ResponseEntity.ok().body(id);
     }

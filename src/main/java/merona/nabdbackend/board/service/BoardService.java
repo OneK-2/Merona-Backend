@@ -2,6 +2,7 @@ package merona.nabdbackend.board.service;
 
 import lombok.RequiredArgsConstructor;
 import merona.nabdbackend.board.dto.BoardSaveRequestDto;
+import merona.nabdbackend.board.dto.BoardUpdateRequestDto;
 import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.board.repository.BoardRepository;
 import merona.nabdbackend.user.entity.User;
@@ -43,4 +44,11 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
+    // 게시글 수정
+    public Long updateBoard(Long id, BoardUpdateRequestDto boardUpdateRequestDto){
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
+        board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContents());
+        return id;
+    }
 }
