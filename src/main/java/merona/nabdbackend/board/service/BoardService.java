@@ -38,4 +38,9 @@ public class BoardService {
         return boardRepository.findById(id);
     }
 
+    // 게시글 삭제
+    public void deleteById(Long id){
+        boardRepository.deleteById(id);
+    }
+
 }

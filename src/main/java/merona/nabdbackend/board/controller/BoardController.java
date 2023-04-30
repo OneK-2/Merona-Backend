@@ -54,5 +54,20 @@ public class BoardController {
         return ResponseEntity.ok().body(board);
     }
 
+    // 게시글 삭제
+    @DeleteMapping("/list/{id}/delete")
+    public ResponseEntity<Long> deletePost(@PathVariable Long id){
+        // 현재 세션 사용자의 객체를 가져옴
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // 사용자 아이디로 User 조회
+        User user = userService.findUserByEmail(authentication.getName());
+        Board board = boardService.findById(id).get();
+
+        // 작성한 사용자만 지울 수 있음
+        if (user.getId().equals(board.getUser().getId())){
+            boardService.deleteById(id);
+        }
+        return ResponseEntity.ok().body(id);
+    }
 
 }
