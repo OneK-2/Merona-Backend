@@ -43,4 +43,8 @@ public class Board extends BaseEntity {
         this.title = title;
         this.contents = contents;
     }
+
+    public void updateState(State state){
+        this.state = state;
+    }
 }
