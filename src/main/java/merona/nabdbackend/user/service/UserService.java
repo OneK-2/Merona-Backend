@@ -100,6 +100,16 @@ public class UserService {
         return user;
     }
 
+    public boolean checkEmailDuplicate(String email){
+        Optional<User> userByEmail = userRepository.findUserByEmail(email);
+        if (userByEmail.isPresent()) {
+            return true;   //TODO 이미 존재합니다 exception
+        }
+        else{
+            return false;
+        }
+    }
+
     public List<Board> findBoardsByEmail(User user) {
         return userRepository.findById(user.getId()).get().getBoards();
     }
