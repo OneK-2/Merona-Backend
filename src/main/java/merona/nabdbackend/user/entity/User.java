@@ -39,4 +39,10 @@ public class User extends BaseEntity {
         this.phoneNumber = phoneNumber;
         this.role = Role.ROLE_USER;
     }
+
+    public void update(String email, String name, String password){
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
 }
