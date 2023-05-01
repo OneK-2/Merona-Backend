@@ -6,6 +6,7 @@ import merona.nabdbackend.auth.TokenDto;
 import merona.nabdbackend.auth.TokenRequestDto;
 import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.user.dto.LoginRequestDto;
+import merona.nabdbackend.user.dto.ModifyRequestDto;
 import merona.nabdbackend.user.dto.SignUpRequestDto;
 import merona.nabdbackend.user.entity.User;
 import merona.nabdbackend.user.service.UserService;
@@ -59,5 +60,12 @@ public class UserController {
     @GetMapping("/find/{email}")
     public ResponseEntity<Boolean> findByEmail(@PathVariable String email){
         return ResponseEntity.ok(userService.checkEmailDuplicate(email));
+    }
+
+    // 사용자 정보 수정하기
+    @PatchMapping("/modify/{email}")
+    public ResponseEntity<String> modifyUser(@PathVariable String email, @RequestBody ModifyRequestDto modifyRequestDto){
+        String updateUser = userService.updateUser(email, modifyRequestDto);
+        return ResponseEntity.ok(updateUser);
     }
 }
