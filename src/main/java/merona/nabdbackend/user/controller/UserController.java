@@ -62,6 +62,14 @@ public class UserController {
         return ResponseEntity.ok(userService.checkEmailDuplicate(email));
     }
 
+    // 사용자 정보 가져오기
+    @GetMapping("/info/{email}")
+    public ResponseEntity<User> findUserByEmail(@PathVariable String email){
+        User user = userService.findUserByEmail(email);
+        return ResponseEntity.ok(user);
+    }
+
+
     // 사용자 정보 수정하기
     @PatchMapping("/modify/{email}")
     public ResponseEntity<String> modifyUser(@PathVariable String email, @RequestBody ModifyRequestDto modifyRequestDto){
