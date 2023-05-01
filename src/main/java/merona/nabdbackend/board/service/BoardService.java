@@ -2,7 +2,9 @@ package merona.nabdbackend.board.service;
 
 import lombok.RequiredArgsConstructor;
 import merona.nabdbackend.board.dto.BoardSaveRequestDto;
+import merona.nabdbackend.board.dto.BoardUpdateRequestDto;
 import merona.nabdbackend.board.entity.Board;
+import merona.nabdbackend.board.enums.State;
 import merona.nabdbackend.board.repository.BoardRepository;
 import merona.nabdbackend.user.entity.User;
 import org.springframework.stereotype.Service;
@@ -38,4 +40,23 @@ public class BoardService {
         return boardRepository.findById(id);
     }
 
+    // 게시글 삭제
+    public void deleteById(Long id){
+        boardRepository.deleteById(id);
+    }
+
+    // 게시글 수정
+    public Long updateBoard(Long id, BoardUpdateRequestDto boardUpdateRequestDto){
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
+        board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContents());
+        return id;
+    }
+
+    // 게시글 상태 수정
+    public void updateState(Long id, State state){
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
+        board.updateState(state);
+    }
 }

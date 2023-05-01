@@ -38,4 +38,13 @@ public class Board extends BaseEntity {
         this.contents = contents;
         this.state = State.REQUEST_WAITING;
     }
+
+    public void update(String title, String contents){
+        this.title = title;
+        this.contents = contents;
+    }
+
+    public void updateState(State state){
+        this.state = state;
+    }
 }

@@ -54,4 +54,10 @@ public class UserController {
 
         return new ResponseEntity<>(boards, HttpStatus.OK);
     }
+
+    // 사용자 아이디 중복 확인
+    @GetMapping("/find/{email}")
+    public ResponseEntity<Boolean> findByEmail(@PathVariable String email){
+        return ResponseEntity.ok(userService.checkEmailDuplicate(email));
+    }
 }
