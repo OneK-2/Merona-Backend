@@ -6,6 +6,7 @@ import merona.nabdbackend.auth.token.RefreshToken;
 import merona.nabdbackend.auth.token.RefreshTokenRepository;
 import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.user.dto.LoginRequestDto;
+import merona.nabdbackend.user.dto.ModifyRequestDto;
 import merona.nabdbackend.user.dto.SignUpRequestDto;
 import merona.nabdbackend.user.entity.User;
 import merona.nabdbackend.user.repository.UserRepository;
@@ -112,6 +113,17 @@ public class UserService {
 
     public List<Board> findBoardsByEmail(User user) {
         return userRepository.findById(user.getId()).get().getBoards();
+    }
+
+    // 사용자 정보 수정
+    public String updateUser(String email, ModifyRequestDto modifyRequestDto){
+        User user = userRepository.findUserByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("해당 회원이 없습니다. email=" + email));
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodePW = encoder.encode(modifyRequestDto.getPassword());
+        modifyRequestDto.setPassword(encodePW);
+        user.update(modifyRequestDto.getEmail(), modifyRequestDto.getName(), modifyRequestDto.getPassword());
+        return email;
     }
 
 }
