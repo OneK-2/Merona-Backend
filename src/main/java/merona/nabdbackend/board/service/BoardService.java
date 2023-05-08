@@ -3,6 +3,7 @@ package merona.nabdbackend.board.service;
 import lombok.RequiredArgsConstructor;
 import merona.nabdbackend.board.dto.BoardSaveRequestDto;
 import merona.nabdbackend.board.dto.BoardUpdateRequestDto;
+import merona.nabdbackend.board.entity.Address;
 import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.board.enums.State;
 import merona.nabdbackend.board.repository.BoardRepository;
@@ -21,7 +22,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     // 게시물 작성
-    public Long save(BoardSaveRequestDto boardSaveRequestDto, User user){
+    public Long save(BoardSaveRequestDto boardSaveRequestDto, User user) {
         boardSaveRequestDto.setUser(user);
         Board board = boardSaveRequestDto.boardFormDto();
         boardRepository.save(board);
@@ -30,31 +31,32 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     // 게시물 전체 조회
-    public List<Board> findAll(){
+    public List<Board> findAll() {
         return boardRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     // 게시물 id로 조회
-    public Optional<Board> findById(Long id){
+    public Optional<Board> findById(Long id) {
         return boardRepository.findById(id);
     }
 
     // 게시글 삭제
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         boardRepository.deleteById(id);
     }
 
     // 게시글 수정
-    public Long updateBoard(Long id, BoardUpdateRequestDto boardUpdateRequestDto){
+    public Long updateBoard(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
-        board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContents());
+        board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContents(),
+                new Address(boardUpdateRequestDto.getZipcode(), boardUpdateRequestDto.getStreetAddress(), boardUpdateRequestDto.getDetailAddress()));
         return id;
     }
 
     // 게시글 상태 수정
-    public void updateState(Long id, State state){
+    public void updateState(Long id, State state) {
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
         board.updateState(state);
