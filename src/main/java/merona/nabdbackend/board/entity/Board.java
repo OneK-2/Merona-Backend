@@ -26,25 +26,27 @@ public class Board extends BaseEntity {
 
     private String title;
     private String contents;
+    @Embedded
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     private State state;
 
-    //Address 추가 예정. 객체로 분리할지에 대한 추가 논의
-
-    public Board(User user, String title, String contents){
+    public Board(User user, String title, String contents, Address address) {
         this.user = user;
         this.title = title;
         this.contents = contents;
+        this.address = address;
         this.state = State.REQUEST_WAITING;
     }
 
-    public void update(String title, String contents){
+    public void update(String title, String contents, Address address) {
         this.title = title;
         this.contents = contents;
+        this.address = address;
     }
 
-    public void updateState(State state){
+    public void updateState(State state) {
         this.state = state;
     }
 }

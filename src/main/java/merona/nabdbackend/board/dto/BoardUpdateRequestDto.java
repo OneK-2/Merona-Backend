@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 public class BoardUpdateRequestDto {
     private String title;
     private String contents;
+    private String zipcode;
+    private String streetAddress;
+    private String detailAddress;
 }
