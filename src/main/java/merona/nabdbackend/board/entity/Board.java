@@ -9,6 +9,7 @@ import merona.nabdbackend.board.enums.State;
 import merona.nabdbackend.user.entity.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,23 +27,27 @@ public class Board extends BaseEntity {
 
     private String title;
     private String contents;
+    @Positive
+    private Integer cost;
     @Embedded
     private Address address;
 
     @Enumerated(EnumType.STRING)
     private State state;
 
-    public Board(User user, String title, String contents, Address address) {
+    public Board(User user, String title, String contents, Integer cost, Address address) {
         this.user = user;
         this.title = title;
         this.contents = contents;
         this.address = address;
+        this.cost = cost;
         this.state = State.REQUEST_WAITING;
     }
 
-    public void update(String title, String contents, Address address) {
+    public void update(String title, String contents, Integer cost, Address address) {
         this.title = title;
         this.contents = contents;
+        this.cost = cost;
         this.address = address;
     }
 
