@@ -2,6 +2,7 @@ package merona.nabdbackend.board.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import merona.nabdbackend.board.dto.BoardResponseDto;
 import merona.nabdbackend.board.dto.BoardSaveRequestDto;
 import merona.nabdbackend.board.dto.BoardUpdateRequestDto;
 import merona.nabdbackend.board.entity.Board;
@@ -51,9 +52,9 @@ public class BoardController {
 
     // 게시글 세부 내용 조회
     @GetMapping("/list/{id}")
-    public ResponseEntity<Board> viewDetailPost(@PathVariable Long id){
-        Board board = boardService.findById(id).get();
-        return ResponseEntity.ok().body(board);
+    public ResponseEntity<BoardResponseDto> viewDetailPost(@PathVariable Long id){
+        BoardResponseDto dto = boardService.findBoardById(id);
+        return ResponseEntity.ok().body(dto);
     }
 
     // 게시글 삭제
