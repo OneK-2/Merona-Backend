@@ -1,6 +1,10 @@
 ## 팀 올 때 메로나 
+<img src="https://github.com/Team-Merona/Merona-Backend/assets/85729858/e14f081f-02e7-4f60-a3f3-8fe53dffa298" width="400" height="400"/>
+
+
 목적지 기반 심부름 서비스 "오다 주웠다"  
 <br>
+
 
 [팀 노션](https://bubbly-silicon-1b9.notion.site/2c6eb7aa93a84aee9d16a001ba3ecc95) | 
 [시연 영상]()
