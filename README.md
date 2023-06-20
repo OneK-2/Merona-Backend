@@ -1,14 +1,15 @@
-## 팀 올 때 메로나 
+## 오다주웠다 
 <img src="https://github.com/Team-Merona/Merona-Backend/assets/85729858/e14f081f-02e7-4f60-a3f3-8fe53dffa298" width="400" height="400"/>
 
-
-목적지 기반 심부름 서비스 "오다 주웠다"  
+<div align=center>
+  
+### 목적지 기반 심부름 서비스 "오다 주웠다"  
 <br>
 
 
 [팀 노션](https://bubbly-silicon-1b9.notion.site/2c6eb7aa93a84aee9d16a001ba3ecc95) | 
 [시연 영상]()
-
+</div>
 
 <br>
 
@@ -41,6 +42,12 @@
 
 
 ## 프로젝트 소개
-목적지 기반 심부름 서비스
+사용자의 동선을 기반으로 하여 구매 사용자와 배달 사용자를 매칭하는 심부름 서비스로, 배달 사용자가 캠퍼스 내 자신의 목적지로 가는 동선에 있는 구매자에게 필요한 물품을 대신 구매하여 전달해주며 소정의 비용을 받을 수 있는 어플리케이션
 
-## 📚기술 스택
+## 시스템 블록 다이어그램
+<img src="https://github.com/Team-Merona/Merona-Backend/assets/85729858/600b6f90-54d8-46bc-8698-cd94011e7223"/>
+
+
+## 📚개발 환경
+<img src="https://github.com/Team-Merona/Merona-Backend/assets/85729858/ef75c50b-ee37-47d1-940d-df971216f68f"/>
+
