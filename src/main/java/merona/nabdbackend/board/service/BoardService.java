@@ -8,7 +8,7 @@ import merona.nabdbackend.board.entity.Address;
 import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.board.enums.State;
 import merona.nabdbackend.board.repository.BoardRepository;
-import merona.nabdbackend.user.entity.User;
+import merona.nabdbackend.user.entity.Member;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +23,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     // 게시물 작성
-    public Long save(BoardSaveRequestDto boardSaveRequestDto, User user) {
-        boardSaveRequestDto.setUser(user);
+    public Long save(BoardSaveRequestDto boardSaveRequestDto, Member member) {
+        boardSaveRequestDto.setMember(member);
         Board board = boardSaveRequestDto.boardFormDto();
         boardRepository.save(board);
         return board.getId();

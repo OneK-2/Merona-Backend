@@ -8,7 +8,7 @@ import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.user.dto.LoginRequestDto;
 import merona.nabdbackend.user.dto.ModifyRequestDto;
 import merona.nabdbackend.user.dto.SignUpRequestDto;
-import merona.nabdbackend.user.entity.User;
+import merona.nabdbackend.user.entity.Member;
 import merona.nabdbackend.user.repository.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,17 +31,17 @@ public class UserService {
 
     @Transactional
     public String signUp(SignUpRequestDto requestDto) {
-        Optional<User> userByEmail = userRepository.findUserByEmail(requestDto.getEmail());
+        Optional<Member> userByEmail = userRepository.findUserByEmail(requestDto.getEmail());
         if (userByEmail.isPresent()) {
             throw new RuntimeException();   //TODO 이미 존재합니다 exception
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodePW = encoder.encode(requestDto.getPassword());
         requestDto.setPassword(encodePW);
-        User user = requestDto.userFromDto();
-        userRepository.save(user);
+        Member member = requestDto.userFromDto();
+        userRepository.save(member);
 
-        return user.getEmail();
+        return member.getEmail();
     }
 
     @Transactional
@@ -94,14 +94,14 @@ public class UserService {
         return tokenDto;
     }
 
-    public User findUserByEmail(String userEmail) {
-        Optional<User> userByEmail = userRepository.findUserByEmail(userEmail);
-        User user = userByEmail.get();
-        return user;
+    public Member findUserByEmail(String userEmail) {
+        Optional<Member> userByEmail = userRepository.findUserByEmail(userEmail);
+        Member member = userByEmail.get();
+        return member;
     }
 
     public boolean checkEmailDuplicate(String email){
-        Optional<User> userByEmail = userRepository.findUserByEmail(email);
+        Optional<Member> userByEmail = userRepository.findUserByEmail(email);
         if (userByEmail.isPresent()) {
             return true;   //TODO 이미 존재합니다 exception
         }
@@ -110,18 +110,18 @@ public class UserService {
         }
     }
 
-    public List<Board> findBoardsByEmail(User user) {
-        return userRepository.findById(user.getId()).get().getBoards();
+    public List<Board> findBoardsByEmail(Member member) {
+        return userRepository.findById(member.getId()).get().getBoards();
     }
 
     // 사용자 정보 수정
     public String updateUser(String email, ModifyRequestDto modifyRequestDto){
-        User user = userRepository.findUserByEmail(email).orElseThrow(
+        Member member = userRepository.findUserByEmail(email).orElseThrow(
                 () -> new IllegalArgumentException("해당 회원이 없습니다. email=" + email));
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodePW = encoder.encode(modifyRequestDto.getPassword());
         modifyRequestDto.setPassword(encodePW);
-        user.update(modifyRequestDto.getEmail(), modifyRequestDto.getName(), modifyRequestDto.getPassword());
+        member.update(modifyRequestDto.getEmail(), modifyRequestDto.getName(), modifyRequestDto.getPassword());
         return email;
     }
 

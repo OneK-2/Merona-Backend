@@ -23,6 +23,6 @@ public class BoardResponseDto {
         this.address = board.getAddress();
         this.cost = board.getCost();
         this.state = board.getState();
-        this.email = board.getUser().getEmail();
+        this.email = board.getMember().getEmail();
     }
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import merona.nabdbackend.board.entity.Address;
 import merona.nabdbackend.board.entity.Board;
-import merona.nabdbackend.user.entity.User;
+import merona.nabdbackend.user.entity.Member;
 
 import javax.validation.constraints.Positive;
 
@@ -13,7 +13,7 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardSaveRequestDto {
-    private User user;
+    private Member member;
     private String title;
     private String contents;
     @Positive
@@ -24,11 +24,11 @@ public class BoardSaveRequestDto {
     // 주소
 
     public Board boardFormDto() {
-        return new Board(user, title, contents, cost, new Address(zipcode, streetAddress, detailAddress));
+        return new Board(member, title, contents, cost, new Address(zipcode, streetAddress, detailAddress));
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
 }

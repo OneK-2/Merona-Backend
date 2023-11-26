@@ -1,9 +1,9 @@
 spring:
   datasource:
     #test 용도로 사용
-    url: jdbc:h2:tcp://localhost/~/test
+    url: jdbc:h2:tcp://localhost/~/h2/test
     username: sa
-    password:
+    password: a
     driver-class-name: org.h2.Driver
 
   jpa:

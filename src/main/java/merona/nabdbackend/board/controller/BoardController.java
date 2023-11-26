@@ -9,7 +9,7 @@ import merona.nabdbackend.board.dto.BoardUpdateRequestDto;
 import merona.nabdbackend.board.entity.Board;
 import merona.nabdbackend.board.enums.State;
 import merona.nabdbackend.board.service.BoardService;
-import merona.nabdbackend.user.entity.User;
+import merona.nabdbackend.user.entity.Member;
 import merona.nabdbackend.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +37,10 @@ public class BoardController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // 사용자 아이디로 User 조회
-        User user = userService.findUserByEmail(authentication.getName());
+        Member member = userService.findUserByEmail(authentication.getName());
 
         // 게시글 저장
-        boardService.save(boardSaveRequestDto, user);
+        boardService.save(boardSaveRequestDto, member);
 
         return ResponseEntity.ok().body(boardSaveRequestDto.getTitle());
     }
@@ -68,11 +68,11 @@ public class BoardController {
         // 현재 세션 사용자의 객체를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // 사용자 아이디로 User 조회
-        User user = userService.findUserByEmail(authentication.getName());
+        Member member = userService.findUserByEmail(authentication.getName());
         Board board = boardService.findById(id).get();
 
         // 작성한 사용자만 지울 수 있음
-        if (user.getId().equals(board.getUser().getId())) {
+        if (member.getId().equals(board.getMember().getId())) {
             boardService.deleteById(id);
         }
         return ResponseEntity.ok().body(id);
@@ -85,11 +85,11 @@ public class BoardController {
         // 현재 세션 사용자의 객체를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // 사용자 아이디로 User 조회
-        User user = userService.findUserByEmail(authentication.getName());
+        Member member = userService.findUserByEmail(authentication.getName());
         Board board = boardService.findById(id).get();
 
         // 작성한 사용자만 수정할 수 있음
-        if (user.getId().equals(board.getUser().getId())) {
+        if (member.getId().equals(board.getMember().getId())) {
             Long savedBoardId = boardService.updateBoard(id, updateDto);
         } else {
             throw new RuntimeException("수정할 수 없습니다.");
@@ -102,11 +102,11 @@ public class BoardController {
     @ApiOperation(value = "게시글 상태 변환(진행)", notes = "게시글 상태를 진행중으로 변경")
     public ResponseEntity<Long> updateStateOngoing(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(authentication.getName());
+        Member member = userService.findUserByEmail(authentication.getName());
         Board board = boardService.findById(id).get();
 
         // 작성한 사용자만 수정할 수 있음
-        if (user.getId().equals(board.getUser().getId())) {
+        if (member.getId().equals(board.getMember().getId())) {
             boardService.updateState(id, State.REQUEST_ON_GOING);
         } else {
             throw new RuntimeException("수정할 수 없습니다.");
@@ -119,11 +119,11 @@ public class BoardController {
     @ApiOperation(value = "게시글 상태 변환(완료)", notes = "게시글 상태를 완료로 변경")
     public ResponseEntity<Long> updateStateCompleted(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(authentication.getName());
+        Member member = userService.findUserByEmail(authentication.getName());
         Board board = boardService.findById(id).get();
 
         // 작성한 사용자만 수정할 수 있음
-        if (user.getId().equals(board.getUser().getId())) {
+        if (member.getId().equals(board.getMember().getId())) {
             boardService.updateState(id, State.REQUEST_COMPLETE);
         } else {
             throw new RuntimeException("수정할 수 없습니다.");
