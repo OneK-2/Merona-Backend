@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import merona.nabdbackend.BaseEntity;
 import merona.nabdbackend.board.enums.State;
-import merona.nabdbackend.user.entity.User;
+import merona.nabdbackend.user.entity.Member;
 
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
@@ -23,7 +23,7 @@ public class Board extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
-    private User user;
+    private Member member;
 
     private String title;
     private String contents;
@@ -35,8 +35,8 @@ public class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private State state;
 
-    public Board(User user, String title, String contents, Integer cost, Address address) {
-        this.user = user;
+    public Board(Member member, String title, String contents, Integer cost, Address address) {
+        this.member = member;
         this.title = title;
         this.contents = contents;
         this.address = address;
