@@ -8,7 +8,7 @@
 
 
 [팀 노션](https://bubbly-silicon-1b9.notion.site/2c6eb7aa93a84aee9d16a001ba3ecc95) | 
-[시연 영상]()
+[시연 영상](https://www.youtube.com/watch?v=JcoAWx4ILMs&t=70s)
 </div>
 
 <br>
